@@ -1,4 +1,5 @@
 import random
+import sys
 
 class PerceptronSimple:
 
@@ -9,10 +10,18 @@ class PerceptronSimple:
         self.bias = 0  # bias es igual 0 por default
         self.pesos = [random.randint(1, 10) for _ in range(n_bits)]
 
+        if self.compuerta not in ["AND", "OR", "NOT"]:
+            print("Compuerta desconocida")
+            # return SystemExit
+
+        if self.compuerta == "NOT" and n_bits != 1:
+            print("Compuerta NOT solo acepta 1 bit :(")
+            # return SystemExit
+
+
     # función de activación de la neurona
     def activacion(self, entradas):
-        suma = sum([peso * entrada for peso,
-                   entrada in zip(self.pesos, entradas)]) + self.bias  # agregamos el bias a la suma ponderada
+        suma = sum([peso * entrada for peso, entrada in zip(self.pesos, entradas)]) + self.bias  # agregamos el bias a la suma ponderada
         return 1 if suma >= 0 else 0
 
     # función de entrenamiento
